@@ -100,8 +100,8 @@ def parse_args():
   config["BuildVersionTags"] = build_version_tags
 
   raw_date = args.date_file.read().strip()
-  config["Date"] = subprocess.check_output(["date", "-d", f"@{raw_date}"], text=True).strip()
-  config["DateUtc"] = subprocess.check_output(["date", "-d", f"@{raw_date}", "+%s"], text=True).strip()
+  config["Date"] = datetime.datetime.utcfromtimestamp(int(raw_date)).strftime("%Y-%m-%d %H:%M:%S")
+  config["DateUtc"] = str(int(raw_date))
 
   # build_desc is human readable strings that describe this build. This has the same info as the
   # build fingerprint.
